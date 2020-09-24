@@ -75,6 +75,7 @@ function SWEP:PlaceTurret()
 		if not vpos or vpos:Distance(pos) > 312 or (true and vpos.z-pos.z < 32) or (IsEntity(chkply) and IsValid(chkply)) then return false end
 		local ent = ents.Create("npc_barnacle")
 		if IsValid(ent) then
+			ent.IsTraitorBarnacle = true
 			self:TakePrimaryAmmo(1)
 			self.Owner:EmitSound(throwsound,55)
 			--self:Remove()
@@ -105,6 +106,8 @@ function SWEP:PlaceTurret()
 			ent:Fire("SetDropTongueSpeed",50)
 			ent.Owner = ply
 			ent:SetNWEntity('owner',ply)
+			self:AnnounceBarnacleToTraitors(ent)
+
 			--ent:PhysWake()
 			--ent:SetCollisionGroup(COLLISION_GROUP_WORLD)
 			--timer.Simple(2.5,function() ent:SetCollisionGroup(COLLISION_GROUP_WORLD) end)
@@ -153,6 +156,17 @@ function SWEP:PlaceTurret()
 			if self:Clip1() <= 0 then self:Remove() end
 		end
    	end
+end
+
+if SERVER then
+	function SWEP:AnnounceBarnacleToTraitors(barnacleEntity)
+		timer.Simple(0.5, function()
+			print("Announcing new barnacle: " .. barnacleEntity:EntIndex())
+			net.Start("ttt_barnacle_placed")
+			net.WriteEntity(barnacleEntity)
+			net.Send(GetTraitorFilter(false)) -- GetTraitorFilter(alivePlayersOnly=false) defined in TTT gamemode
+		end)
+	end
 end
 
 if CLIENT then
