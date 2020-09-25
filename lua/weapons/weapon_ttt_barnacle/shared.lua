@@ -161,7 +161,6 @@ end
 if SERVER then
 	function SWEP:AnnounceBarnacleToTraitors(barnacleEntity)
 		timer.Simple(0.5, function()
-			print("Announcing new barnacle: " .. barnacleEntity:EntIndex())
 			net.Start("ttt_barnacle_placed")
 			net.WriteEntity(barnacleEntity)
 			net.Send(GetTraitorFilter(false)) -- GetTraitorFilter(alivePlayersOnly=false) defined in TTT gamemode
