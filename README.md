@@ -9,5 +9,5 @@ This is a traitor-only weapon for the Trouble in Terrorist Town gamemode for Gar
 
 # Additions
 * Fixes an issue with halos- when playing on a multiplayer server, a barnacle's halo won't appear until another barnacle is placed
-    * https://cdn.discordapp.com/attachments/634596213110341643/758679549101342780/barnacle.mp4
+    * https://cdn.discordapp.com/attachments/667493549444562947/758797751256875008/barnacles.mp4
 
